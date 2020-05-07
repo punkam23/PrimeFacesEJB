@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<h:body>
+
+<style type="text/css">
+    .ui-panelgrid.showcase-text-align-center .ui-grid-responsive .ui-panelgrid-cell {
+        text-align: center;
+    }
+</style>
+	<h:form id="form">
+        <div class="ui-g">
+            <div class="ui-g-3">
+                <h1>Factura Test</h1>
+            </div>
+            <div class="ui-g-3" style="margin-top:10px;">
+                <p:commandButton value="Guardar Factura" styleClass="ui-priority-primary" update="form"
+                                action="#{dtAddRowView.onSaveFactura()}"/>
+            </div>
+            <div class="ui-g-3" style="margin-top:10px;">
+                <p:commandButton value="Clear Screan" styleClass="ui-priority-primary" update="form"
+                                action="#{dtAddRowView.onClear()}"/>
+            </div>
+            <div class="ui-g-3" style="margin-top:10px;">
+                <p:commandButton value="Buscar" styleClass="ui-priority-primary" update="form"
+                                action="#{dtAddRowView.onSearch()}"/>
+            </div>
+        </div>
+        <div >
+            <div class="ui-g-12 ui-md-4">
+                <h3>Nombre Cliente</h3>
+                <p:inputText value="#{dtAddRowView.nombre}"/>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+                <h3>Fecha</h3>
+                <p:datePicker value="#{dtAddRowView.fecha}"/>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+                <h3>Numero de Factura</h3>
+                <p:inputText value="#{dtAddRowView.numeroFactura}"/>
+            </div>
+        </div>
+        <h3>Detalles</h3>
+        <p:growl id="msgs" showDetail="true"/>
+ 
+        <p:dataTable id="cars1" widgetVar="cars1" var="car" value="#{dtAddRowView.cars1}" editable="true" style="margin-bottom:20px">
+            <f:facet name="header">
+                Detalle de la factura
+            </f:facet>
+     
+            <p:ajax event="rowEdit" listener="#{dtAddRowView.onRowEdit}" update=":form:msgs" />
+            <p:ajax event="rowEditCancel" listener="#{dtAddRowView.onRowCancel}" update=":form:msgs" />
+     
+            <p:column headerText="Id">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{car.id}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="modelInput" value="#{car.id}" style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+     
+            <p:column headerText="Year">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{car.year}" /></f:facet>
+                    <f:facet name="input"><p:inputText value="#{car.year}" style="width:100%" label="Year"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+     
+            <p:column headerText="Brand">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{car.brand}" /></f:facet>
+                    <f:facet name="input">
+                        <h:selectOneMenu value="#{car.brand}" style="width:100%">
+                            <f:selectItems value="#{dtEditView.brands}" var="man" itemLabel="#{man}" itemValue="#{man}" />
+                        </h:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+     
+            <p:column headerText="Color">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{car.color}" /></f:facet>
+                    <f:facet name="input">
+                        <h:selectOneMenu value="#{car.color}" style="width:100%">
+                            <f:selectItems value="#{dtEditView.colors}" var="color" itemLabel="#{color}" itemValue="#{color}" />
+                        </h:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+     
+            <p:column style="width:32px">
+                <p:rowEditor />
+            </p:column>
+        </p:dataTable>
+ 
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <p:commandButton value="Add new row" styleClass="ui-priority-primary" process="@this" update=":form:msgs"
+                                action="#{dtAddRowView.onAddNew()}" oncomplete="PF('cars1').addRow();"/>
+            </div>
+        </div>
+        <div>
+            <div class="ui-g-12 ui-md-10">
+                <h3>Total Factura</h3>
+            </div>
+            <div class="ui-g-12 ui-md-2" style="margin-top:5px;">
+                <h:outputText value="#{dtAddRowView.totalMount}"/>
+            </div>
+        </div>
+	</h:form>
+
+</h:body>
+</html>

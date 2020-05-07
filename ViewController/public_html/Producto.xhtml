@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:sfa="/ccss.utils.tags/Seguridad.taglib"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+     <h:form id="form">
+          <p:messages id="messages" showDetail="false" autoUpdate="false" closable="true"/>
+         <div align="left" class="ui-g-12 sfa-padding-right-xs sfa-form-padding-top-no">
+             <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
+                <div class="ui-g-4 ui-lg-4 ui-md-12 ui-sm-12 sfa-input-label">
+                    <p:outputLabel value="Identificador: "/>
+                    <p:inputText required="true" requiredMessage="El campo Identificador es requerido" id="identificador" value="#{ProductoMB.productoBO.idProducto}" style="width:300px " />
+                </div>
+                <div class="ui-g-4 ui-lg-4 ui-md-12 ui-sm-12 sfa-input-label">
+                    <p:outputLabel value="Nombre: "/>
+                    <p:inputText id="txtNombre" value="#{ProductoMB.productoBO.nombre}" style="width:300px " />
+                </div>
+                
+                <div class="ui-g-4 ui-lg-4 ui-md-12 ui-sm-12 sfa-input-label">
+                    <p:outputLabel value="Cantidad: "/>
+                    <p:inputText id="cantidad" required="true" requiredMessage="El campo Identificador es requerido" value="#{ProductoMB.productoBO.cantidad}" style="width:300px " />
+                </div>
+                <div class="ui-g-4 ui-lg-4 ui-md-12 ui-sm-12 sfa-input-label">
+                    <p:outputLabel value="Monto: "/>
+                    <p:inputText id="monto" value="#{ProductoMB.productoBO.monto}" style="width:300px " />
+                </div>
+                
+                <div class="ui-g-4 ui-lg-4 ui-md-12 ui-sm-12 sfa-input-label" style="margin-top: 20px">
+                     <p:commandButton value="Buscar"   action="#{ProductoMB.buscarProducto}"  />
+                     <p:commandButton value="Insertar"  action="#{ProductoMB.insertarProducto}"  />
+                     <p:commandButton value="Modificar"  action="#{ProductoMB.modificarProducto}"  />
+                     <p:commandButton value="Eliminar" action="#{ProductoMB.eliminarProducto}"  />
+                </div>
+            </div>
+         </div>
+    </h:form>
+
+    
+</ui:composition>
