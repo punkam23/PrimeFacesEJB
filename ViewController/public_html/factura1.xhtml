@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:sfa="/ccss.utils.tags/Seguridad.taglib"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+     <h:form id="form">
+          <p:messages id="messages" showDetail="false" autoUpdate="false" closable="true"/>
+         <div align="left" class="ui-g-12 sfa-padding-right-xs sfa-form-padding-top-no">
+             <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
+                <div class="ui-g-4 ui-lg-4 ui-md-12 ui-sm-12 sfa-input-label">
+                    <p:outputLabel value="Numero de Factura: "/>
+                    <p:inputText id="numeroFactura" required="true" requiredMessage="El campo Numero Factura es requerido" value="#{FacturaMB.facturaTO.idFactura}" />
+                </div>
+                <div class="ui-g-4 ui-lg-4 ui-md-12 ui-sm-12 sfa-input-label">
+                    <p:outputLabel value="Nombre Cliente: "/>
+                    <p:inputText id="nombreCliente" required="true" requiredMessage="El campo Nombre del Cliente es requerido" value="#{FacturaMB.facturaTO.nombreCliente}" style="width:300px " />
+                </div>
+                
+                <div class="ui-g-4 ui-lg-4 ui-md-12 ui-sm-12 sfa-input-label" style="margin-top: 20px">
+                    <p:outputLabel value="Producto: "/>
+                    <p:inputText id="IdProducto" value="#{FacturaMB.productoTO.idProducto}"  style="width:300px " />
+                    <p:commandButton   value="Buscar"  action="#{FacturaMB.buscarProducto}"/>
+                    <p:outputLabel value="Monto: " />
+                    <p:inputText id="txtMonto"  value="#{FacturaMB.productoTO.monto}" style="width:300px " readonly="true" />
+                    <p:outputLabel value="Cantidad: "/>
+                    <p:inputText id="txtCatidad" value="#{FacturaMB.productoTO.cantidad}" style="width:300px " readonly="true" />
+                     <p:commandButton value="Añadir"  action="#{FacturaMB.insertarProducto}"  />
+                </div>
+            </div>
+         </div>
+         <div class="ui-g-12 sfa-padding-left-sm sfa-padding-right-sm sfa-padding-bottom-sm" style="margin-top: 30px;margin-left: 200px" >
+            <p:dataTable border="1px" id="tblProductos" value="#{FacturaMB.listaProductos}" var="producto" rows="20" 
+                    emptyMessage="No hay productos registrados" reflow="true">
+                    <p:column headerText="Identificador" >
+                        <h:outputText value="#{producto.idProducto}" />
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{producto.nombre}" />
+                    </p:column>
+                    <p:column headerText="Precio Unitario">
+                        <h:outputText value="#{producto.monto}"/>
+                    </p:column>
+                    <p:column headerText="Cantidad">
+                        <h:outputText value="#{producto.cantidad}"/>
+                    </p:column>
+            </p:dataTable>
+        </div>
+        
+        <div align="right" class="ui-g-12 sfa-padding-right-xs sfa-form-padding-top-no">
+             <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
+                <div class="ui-g-4 ui-lg-4 ui-md-12 ui-sm-12 sfa-input-label">
+                    <p:outputLabel value="SubTotal: "/>
+                    <p:inputText id="txtSubtotal" value="#{FacturaMB.subtotal}" readonly="true" />
+                </div>
+                <div class="ui-g-4 ui-lg-4 ui-md-12 ui-sm-12 sfa-input-label">
+                    <p:outputLabel value="Impuesto: "/>
+                    <p:inputText id="txtImpuesto" value="#{FacturaMB.facturaTO.impuesto}" readonly="true"  />
+                </div>
+                
+                <div class="ui-g-4 ui-lg-4 ui-md-12 ui-sm-12 sfa-input-label">
+                            <p:outputLabel value="Total: "/>
+                            <p:inputText id="txtTotal" value="#{FacturaMB.facturaTO.total}" readonly="true" />
+                </div>
+                
+                <div class="ui-g-4 ui-lg-4 ui-md-12 ui-sm-12 sfa-input-label">
+                     <p:commandButton value="Facturar" action="#{FacturaMB.guardarFactura}" />
+                </div>
+                
+            </div>
+         </div>
+        
+    </h:form>
+
+    
+</ui:composition>
